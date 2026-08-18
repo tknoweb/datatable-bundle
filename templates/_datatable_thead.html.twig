@@ -1,0 +1,18 @@
+<thead class="datatable-thead">
+<tr class="datatable-tr">
+    {% for column in datatable.columns %}
+        {% set columnCurrentSort = datatable.columnCurrentSort(column) %}
+        <th class="datatable-th {{ column.sortable ? 'sortable' }} {{ columnCurrentSort ? 'sorted-' ~ columnCurrentSort }} {{ column.headCssClass ? column.headCssClass }} {{ column.actions is defined ? 'datatable-th-action' }} {{ column.show == false ? 'd-none' }}">
+            {% if column.label %}
+                {% if column.sortable %}
+                    <a href="{{ currentUrlWithParameters({ (datatable.datatableRequestParameterName('sort')): {(column.name) : inverseColumnSort(columnCurrentSort)}, (datatable.datatableRequestParameterName('resetPagination')): 1 }) }}">
+                        {{ column.label|trans }}
+                    </a>
+                {% else %}
+                    {{ column.label|trans }}
+                {% endif %}
+            {% endif %}
+        </th>
+    {% endfor %}
+</tr>
+</thead>

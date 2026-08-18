@@ -1,0 +1,9 @@
+<tbody class="datatable-body">
+{% for datatableResult in datatable.results %}
+    <tr class="datatable-tr">
+        {% for cell in datatableResult.cells %}
+            {{ include('@TknowebDatatable/_datatable_cell.html.twig', {'datatable': datatable, 'result': datatableResult, 'cell': cell}) }}
+        {% endfor %}
+    </tr>
+{% endfor %}
+</tbody>

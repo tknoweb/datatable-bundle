@@ -1,0 +1,16 @@
+<div>
+    <label>Afficher</label>
+    <select name="list-limit-selector"
+            {{ stimulus_action('datatable', 'changeLimitMax') }}
+    >
+        {% for possibleLimitMax in datatable.possibleLimitMax %}
+            <option value="{{ possibleLimitMax }}"
+                    data-url="{{ currentUrlWithParameters({ (datatable.datatableRequestParameterName('max')): possibleLimitMax}) }}"
+                    {% if possibleLimitMax == datatable.limitMax %}selected="selected"{% endif %}
+            >
+                {{ possibleLimitMax == datatable.unlimitedLimitMax ? 'all'|trans : possibleLimitMax }}
+            </option>
+        {% endfor %}
+    </select>
+    <span>éléments</span>
+</div>

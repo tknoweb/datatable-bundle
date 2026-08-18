@@ -1,0 +1,3 @@
+{% block month_filter_widget %}
+    <input type="month" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{% endblock %}

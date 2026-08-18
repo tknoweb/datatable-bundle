@@ -1,0 +1,40 @@
+{
+  "name": "tknoweb/datatable-bundle",
+  "type": "symfony-bundle",
+  "description": "Server-side datatables for Symfony: typed columns, sorting, pagination, form-based filters and row actions",
+  "keywords": ["symfony", "bundle", "datatable", "doctrine", "pagination", "filter"],
+  "license": "MIT",
+  "homepage": "https://github.com/tknoweb/datatable-bundle",
+  "authors": [
+    {
+      "name": "T'knoweb - Benjamin Guizelin"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/tknoweb/datatable-bundle/issues",
+    "source": "https://github.com/tknoweb/datatable-bundle"
+  },
+  "require": {
+    "php": ">=8.1",
+    "doctrine/doctrine-bundle": "^2.7",
+    "doctrine/orm": "^2.13|^3.3",
+    "symfony/form": ">=6.4",
+    "symfony/framework-bundle": ">=6.4",
+    "symfony/options-resolver": ">=6.4",
+    "symfony/property-access": ">=6.4",
+    "symfony/serializer": ">=6.4",
+    "symfony/twig-bundle": ">=6.4",
+    "symfony/yaml": ">=5.4",
+    "twig/extra-bundle": "^2.12|^3.0",
+    "twig/twig": "^2.12|^3.0"
+  },
+  "autoload": {
+    "psr-4": { "Tknoweb\\DatatableBundle\\": "src/"}
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "symfony/flex": true
+    }
+  }
+}

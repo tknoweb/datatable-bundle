@@ -1,0 +1,4 @@
+<table class="datatable-table {{ datatable.cssClass ? datatable.cssClass }}">
+    {{ include('@TknowebDatatable/_datatable_thead.html.twig', {'datatable': datatable}) }}
+    {{ include(datatable.templateTbody, {'datatable': datatable}) }}
+</table>

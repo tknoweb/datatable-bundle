@@ -1,0 +1,20 @@
+{% if not action.credential or is_granted(action.credential, result) %}
+    <div class="datatable-action">
+        <a class="{{ action.cssClass ? action.cssClass }}"
+           {% if action.route %}href="{{ path(action.route, action.computedRouteParameters(result) ?: {'id': result.id}) }}"{% endif %}
+           {% if action.computedConfirmMessage(result) %}onclick="return window.confirm('{{ action.computedConfirmMessage(result)|trans|e('js') }}')"{% endif %}
+           {% if action.computedTooltip(result) %}title="{{ action.computedTooltip(result)|trans }}"{% endif %}
+           {% if action.stimulusAction %}
+               {% set stimulusActionParameters = action.stimulusAction.parameters is defined ? action.stimulusAction.parameters : [] %}
+                {% set stimulusActionParameters = stimulusActionParameters|merge({'entityId': result.id}) %}
+               {{ stimulus_action(action.stimulusAction.controller, action.stimulusAction.action, action.stimulusAction.event is defined ? action.stimulusAction.event : null, stimulusActionParameters) }}
+           {% endif %}
+           {% if action.target %}target="{{ action.target }}"{% endif %}
+        >
+            {% if action.iconCssClass %}
+                <i class="{{ action.iconCssClass }}"></i>
+            {% endif %}
+            {{ action.computedLabel(result) }}
+        </a>
+    </div>
+{% endif %}

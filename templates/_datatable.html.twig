@@ -1,0 +1,12 @@
+<div {{ stimulus_controller('datatable', {'scrollOnChange': datatable.scrollOnChange}) }}>
+    <div class="datatable-loader-container">
+        <div class="datatable-loader"></div>
+    </div>
+    <div class="datatable">
+        {{ include('@TknowebDatatable/_datatable_table.html.twig', {'datatable': datatable}) }}
+    </div>
+
+    {% if datatable.displayFooter %}
+        {{ include('@TknowebDatatable/_datatable_footer.html.twig', {'datatable': datatable}) }}
+    {% endif %}
+</div>

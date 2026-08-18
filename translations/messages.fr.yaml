@@ -1,0 +1,12 @@
+#This file is used to auto translate various datatable column name, action name etc.
+edit: Modifier
+delete: Supprimer
+new: Nouveau
+show: Voir
+all: Tout
+yes: Oui
+no: Non
+filter: Filtrer
+
+formSave: Sauvegarder
+save: sauvegarder

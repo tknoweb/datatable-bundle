@@ -1,0 +1,70 @@
+{% set maxPage = (datatable.filteredCount / datatable.limitMax)|round(0,'ceil') %}
+<div>
+    {# Previous Page #}
+    <a class="{{ datatable.limitOffset == 0 ? 'disabled' }}"
+       href="{{ currentUrlWithParameters({ (datatable.datatableRequestParameterName('offset')): datatable.limitOffset - datatable.limitMax, (datatable.datatableRequestParameterName('max')): datatable.limitMax }) }}"
+       {{ stimulus_action('datatable', 'changePage') }}
+    >
+        <
+    </a>
+    <ul>
+        {# First Page #}
+        <li>
+            <a class="{{ datatable.limitOffset == 0 ? 'datatable-pagination-active' }}"
+               href="{{ currentUrlWithParameters({ (datatable.datatableRequestParameterName('offset')): 0, (datatable.datatableRequestParameterName('max')): datatable.limitMax }) }}"
+               {{ stimulus_action('datatable', 'changePage') }}
+            >
+                1
+            </a>
+        </li>
+
+        {# Pagination spacer #}
+        {% if datatable.limitOffset >= 4 * datatable.limitMax %}
+            <li>
+                <span>...</span>
+            </li>
+        {% endif %}
+
+        {# -2 page <-> +2page #}
+        {% set minOffset = max(datatable.limitOffset - 2 * datatable.limitMax, datatable.limitMax)  %}
+        {% set maxOffset = min(datatable.limitOffset + 2 * datatable.limitMax, (maxPage-2) * datatable.limitMax)  %}
+        {% if maxOffset >= minOffset %}
+            {% for i in range(minOffset, maxOffset, datatable.limitMax) %}
+                <li>
+                    <a class="{{ datatable.limitOffset == i ? 'datatable-pagination-active' }}"
+                       href="{{ currentUrlWithParameters({ (datatable.datatableRequestParameterName('offset')): i, (datatable.datatableRequestParameterName('max')): datatable.limitMax }) }}"
+                       {{ stimulus_action('datatable', 'changePage') }}
+                    >
+                        {{ (i + datatable.limitMax) / datatable.limitMax }}
+                    </a>
+                </li>
+            {% endfor %}
+        {% endif %}
+
+        {# Pagination spacer #}
+        {% if datatable.limitOffset <= (datatable.filteredCount - 4 * datatable.limitMax) %}
+            <li>
+                <span>...</span>
+            </li>
+        {% endif %}
+
+        {# Last Page #}
+        {% if maxPage > 1 %}
+            <li>
+                <a class="{{ datatable.limitOffset + datatable.results|length >= datatable.filteredCount ? 'datatable-pagination-active' }}"
+                   href="{{ currentUrlWithParameters({ (datatable.datatableRequestParameterName('offset')): (maxPage-1) * datatable.limitMax, (datatable.datatableRequestParameterName('max')): datatable.limitMax }) }}"
+                   {{ stimulus_action('datatable', 'changePage') }}
+                >
+                    {{ maxPage }}
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+    {# Next Page #}
+    <a class="{{ datatable.limitOffset + datatable.limitMax >= datatable.filteredCount ? 'disabled' }}"
+       href="{{ currentUrlWithParameters({ (datatable.datatableRequestParameterName('offset')): datatable.limitOffset + datatable.limitMax, (datatable.datatableRequestParameterName('max')): datatable.limitMax }) }}"
+       {{ stimulus_action('datatable', 'changePage') }}
+    >
+        >
+    </a>
+</div>

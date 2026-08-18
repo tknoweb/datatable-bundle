@@ -1,0 +1,50 @@
+/*************************************/
+/*********** Turbo frame *************/
+/*************************************/
+turbo-frame.datatable-turbo-frame .datatable-loader-container {
+    display: none;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    opacity: 0.5;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+turbo-frame.datatable-turbo-frame[busy] .datatable-loader-container {
+    display: block;
+}
+
+/*************************************/
+/************ Datatable **************/
+/*************************************/
+.datatable .datatable-th.sortable {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.datatable .datatable-th.sortable a {
+    display: inline-block;
+    width: 100%;
+}
+
+.datatable .datatable-th.sortable a::after {
+    content: "⇳";
+    opacity: 0.2;
+    float: right;
+}
+
+.datatable .datatable-th.sortable.sorted-asc a::after {
+    font-family: "Font Awesome 6 Free";
+    content: "⇧";
+    opacity: 1;
+}
+
+.datatable .datatable-th.sortable.sorted-desc a::after {
+    font-family: "Font Awesome 6 Free";
+    content: "⇩";
+    opacity: 1;
+}

@@ -1,0 +1,9 @@
+<div>
+    {% if datatable.displayLimitSelector %}
+        {{ include('@TknowebDatatable/_datatable_footer_limit_selector.html.twig', {'datatable': datatable}) }}
+    {% endif %}
+    {{ include('@TknowebDatatable/_datatable_footer_elements_shown.html.twig', {'datatable': datatable}) }}
+    {% if datatable.displayPagination %}
+        {{ include('@TknowebDatatable/_datatable_footer_pagination.html.twig', {'datatable': datatable}) }}
+    {% endif %}
+</div>

@@ -1,0 +1,3 @@
+twig:
+  form_themes:
+    - '@TknowebDatatable/form/filter_theme.html.twig'

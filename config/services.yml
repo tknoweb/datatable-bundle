@@ -1,0 +1,21 @@
+services:
+  Tknoweb\DatatableBundle\Datatable\DatatableFactory:
+    public: true
+    arguments:
+      - '@parameter_bag'
+      - '@translator'
+      - '@twig'
+      - '@request_stack'
+      - '@form.factory'
+
+  Tknoweb\DatatableBundle\Twig\DatatableExtension:
+    public: true
+    tags: ['twig.extension']
+    arguments:
+      - '@twig'
+      - '@request_stack'
+      - '@router'
+
+  Tknoweb\DatatableBundle\Twig\FilterExtension:
+    public: true
+    tags: [ 'twig.extension' ]

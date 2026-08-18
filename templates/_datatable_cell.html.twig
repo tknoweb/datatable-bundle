@@ -1,0 +1,9 @@
+<td class="datatable-td {{ cell.cssClass ? cell.cssClass }} {{ cell.show == false ? 'd-none' }}">
+    {% if cell.route %}
+        <a class="datatable-td-link" href="{{ path(cell.route, cell.routeParameters(result.value) ?: {'id': result.value.id}) }}">
+            {{ cell.raw ? cell|raw : cell }}
+        </a>
+    {% else %}
+        {{ cell.raw ? cell|raw : cell }}
+    {% endif %}
+</td>
