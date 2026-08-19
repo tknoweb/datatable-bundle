@@ -612,6 +612,18 @@ Le rendu (`renderDatatable`) déclenche l'exécution des requêtes de façon par
 - Promotion de propriétés en constructeur, propriétés `protected`, types de retour explicites.
 - Commentaires et docblocks en anglais ; chaînes visibles utilisateur en français ou traduites.
 
+### Modifier les assets — incrémenter la version npm
+
+**Toute modification sous `assets/` impose d'incrémenter `"version"` dans `assets/package.json`.**
+
+Les projets Encore déclarent le paquet en dépendance `file:vendor/tknoweb/datatable-bundle/assets`.
+Yarn compare les versions pour décider s'il recopie le dossier : à version identique, il conserve sa
+copie dans `node_modules` et le projet continue de servir l'ancien JavaScript et l'ancien CSS, sans
+aucun message. Le PHP est à jour, les assets non — le pire des symptômes, puisqu'il est muet.
+
+Aligner cette version sur le tag Composer est le plus lisible. Le strict nécessaire est qu'elle
+change dès que le contenu de `assets/` change.
+
 ### Maintenir la documentation à jour
 
 **Toute modification du code du bundle doit être répercutée dans la documentation**, dans le même

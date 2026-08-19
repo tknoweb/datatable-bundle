@@ -2,7 +2,7 @@
   "name": "@tknoweb/datatable-bundle",
   "description": "Symfony UX Datatable",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "3.0.1",
   "main": "js/controllers/datatable_controller.js",
   "symfony": {
     "controllers": {
