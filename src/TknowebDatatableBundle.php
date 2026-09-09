@@ -34,7 +34,10 @@ class TknowebDatatableBundle extends AbstractBundle
         $containerBuilder->prependExtensionConfig('framework', [
             'asset_mapper' => [
                 'paths' => [
-                    __DIR__ . '/../assets/js' => '@tknoweb/datatable-bundle',
+                    __DIR__ . '/../assets' => '@tknoweb/datatable-bundle',
+                ],
+                'excluded_patterns' => [
+                    '*/datatable-bundle/assets/package.json',
                 ],
             ],
         ]);

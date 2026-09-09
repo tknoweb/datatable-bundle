@@ -48,7 +48,7 @@ pagination sans rechargement.
 
 ### Assets
 
-- **AssetMapper** : le chemin `assets/js` du bundle est auto-déclaré sous `@tknoweb/datatable-bundle`
+- **AssetMapper** : le dossier `assets` du bundle est auto-déclaré sous `@tknoweb/datatable-bundle`
   (voir `prependExtension()`), le contrôleur Stimulus doit être exposé sous le nom `datatable`.
 - **Webpack Encore** : `assets/package.json` déclare le contrôleur `datatable` (`symfony.controllers`)
   avec autoimport du CSS.

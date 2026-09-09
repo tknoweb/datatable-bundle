@@ -51,8 +51,9 @@ Tknoweb\DatatableBundle\TknowebDatatableBundle::class => ['all' => true],
 
 Le contrôleur Stimulus doit être disponible sous le nom `datatable`.
 
-- **AssetMapper** : le chemin `assets/js` du bundle est déclaré automatiquement sous
-  `@tknoweb/datatable-bundle`.
+- **AssetMapper** : le dossier `assets` du bundle est déclaré automatiquement sous
+  `@tknoweb/datatable-bundle`, ce qui expose le contrôleur `@tknoweb/datatable-bundle/js/controllers/datatable_controller.js`
+  et la feuille de style `@tknoweb/datatable-bundle/styles/datatable.css`.
 - **Webpack Encore** : `assets/package.json` déclare le contrôleur et l'import automatique du CSS.
 
 Si la chaîne d'assets ne l'importe pas d'elle-même, importer `assets/styles/datatable.css` depuis
