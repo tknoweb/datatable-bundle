@@ -175,6 +175,10 @@ public function index(Request $request, DatatableFactory $datatableFactory, Proj
 > Chaque nom de colonne doit être unique : `addColumn()` indexe par nom, une seconde colonne portant
 > le même nom écrase silencieusement la première.
 
+> Le tri se termine toujours par l'identifiant de l'entité, dans le sens du dernier tri (croissant
+> sans tri) : les lignes ex æquo gardent ainsi le même ordre d'une page à l'autre, et aucune ne
+> s'affiche deux fois ni ne disparaît de la pagination.
+
 ### B-3) Création du formulaire de filtre
 
 ```php

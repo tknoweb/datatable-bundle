@@ -7,6 +7,7 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\Form\Form;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Tknoweb\DatatableBundle\Datatable\Datatable;
 use Tknoweb\DatatableBundle\Datatable\DatatableResult;
 
 /**
@@ -62,6 +63,11 @@ class DoctrineDataSource extends AbstractDataSource
 
             $tmpDataSource->addOrderBy($sortValue['field'], $sortValue['direction']);
         }
+
+        //Break ties on the identifier, in the direction of the last sort: rows sharing the same sorted
+        //value have no guaranteed order in SQL, and may otherwise be shown on two pages or on none
+        $lastSortValue = end($this->sortValues);
+        $tmpDataSource->addOrderBy("$rootAlias.id", $lastSortValue ? $lastSortValue['direction'] : Datatable::SORT_ORDER_ASCENDING);
 
         //Add the limit clause
         $tmpDataSource->setFirstResult($this->limitValues['offset'])->setMaxResults($this->limitValues['max']);

@@ -512,7 +512,10 @@ Trois requêtes dérivées du QueryBuilder de base :
 - **total** : `COUNT(DISTINCT <alias>.id)` sans filtres ni `ORDER BY` ;
 - **filtré** : idem + filtres ;
 - **résultats** : filtres + `ORDER BY` + `setFirstResult/setMaxResults`, exécuté via
-  `Doctrine\ORM\Tools\Pagination\Paginator` (`fetchJoinCollection: true`).
+  `Doctrine\ORM\Tools\Pagination\Paginator` (`fetchJoinCollection: true`). L'`ORDER BY` se termine
+  toujours par `<alias>.id`, dans le sens du dernier tri (croissant sans tri) : sans ce départage,
+  SQL ne garantit pas l'ordre des lignes ex æquo d'une requête à l'autre, et une ligne pourrait
+  s'afficher sur deux pages ou sur aucune. Inutile donc d'ajouter un tri sur l'id côté projet.
 
 Conséquence : **l'entité racine doit avoir une propriété `id`**. Le QueryBuilder de base est cloné, il
 reste réutilisable côté appelant. Une autre source se crée en étendant `AbstractDataSource`
