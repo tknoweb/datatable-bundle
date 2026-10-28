@@ -513,9 +513,12 @@ Trois requêtes dérivées du QueryBuilder de base :
 - **filtré** : idem + filtres ;
 - **résultats** : filtres + `ORDER BY` + `setFirstResult/setMaxResults`, exécuté via
   `Doctrine\ORM\Tools\Pagination\Paginator` (`fetchJoinCollection: true`). L'`ORDER BY` se termine
-  toujours par `<alias>.id`, dans le sens du dernier tri (croissant sans tri) : sans ce départage,
-  SQL ne garantit pas l'ordre des lignes ex æquo d'une requête à l'autre, et une ligne pourrait
-  s'afficher sur deux pages ou sur aucune. Inutile donc d'ajouter un tri sur l'id côté projet.
+  par `<alias>.id`, dans le sens du dernier tri (croissant sans tri) : sans ce départage, SQL ne
+  garantit pas l'ordre des lignes ex æquo d'une requête à l'autre, et une ligne pourrait s'afficher
+  sur deux pages ou sur aucune. Inutile donc d'ajouter un tri sur l'id côté projet. Le départage
+  n'est pas ajouté quand `<alias>.id` figure déjà dans l'`ORDER BY`, que ce soit par un tri de la
+  datatable (colonne `id`, `order_field` `x.id`) ou par un `orderBy` du `query_builder` : l'ordre
+  est alors déjà total, et SQL Server refuse une colonne listée deux fois (erreur 169).
 
 Conséquence : **l'entité racine doit avoir une propriété `id`**. Le QueryBuilder de base est cloné, il
 reste réutilisable côté appelant. Une autre source se crée en étendant `AbstractDataSource`

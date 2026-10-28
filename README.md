@@ -177,7 +177,8 @@ public function index(Request $request, DatatableFactory $datatableFactory, Proj
 
 > Le tri se termine toujours par l'identifiant de l'entité, dans le sens du dernier tri (croissant
 > sans tri) : les lignes ex æquo gardent ainsi le même ordre d'une page à l'autre, et aucune ne
-> s'affiche deux fois ni ne disparaît de la pagination.
+> s'affiche deux fois ni ne disparaît de la pagination. Si le tri porte déjà sur l'identifiant, il
+> n'est pas ajouté une seconde fois : SQL Server refuse une colonne en double dans l'`ORDER BY`.
 
 ### B-3) Création du formulaire de filtre
 

@@ -65,14 +65,30 @@ class DoctrineDataSource extends AbstractDataSource
         }
 
         //Break ties on the identifier, in the direction of the last sort: rows sharing the same sorted
-        //value have no guaranteed order in SQL, and may otherwise be shown on two pages or on none
-        $lastSortValue = end($this->sortValues);
-        $tmpDataSource->addOrderBy("$rootAlias.id", $lastSortValue ? $lastSortValue['direction'] : Datatable::SORT_ORDER_ASCENDING);
+        //value have no guaranteed order in SQL, and may otherwise be shown on two pages or on none.
+        //Skipped when already sorted on the identifier: SQL Server rejects a column listed twice
+        if (!$this->isOrderedBy($tmpDataSource, "$rootAlias.id")) {
+            $lastSortValue = end($this->sortValues);
+            $tmpDataSource->addOrderBy("$rootAlias.id", $lastSortValue ? $lastSortValue['direction'] : Datatable::SORT_ORDER_ASCENDING);
+        }
 
         //Add the limit clause
         $tmpDataSource->setFirstResult($this->limitValues['offset'])->setMaxResults($this->limitValues['max']);
         //Results data source
         $this->resultsDataSource = $tmpDataSource;
+    }
+
+    protected function isOrderedBy(QueryBuilder $queryBuilder, string $field): bool
+    {
+        foreach ($queryBuilder->getDQLPart('orderBy') as $orderBy) {
+            foreach ($orderBy->getParts() as $part) {
+                if (preg_replace('/\s+(asc|desc)$/i', '', trim($part)) === $field) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     public function getResults(bool $forceRefresh = false): array
