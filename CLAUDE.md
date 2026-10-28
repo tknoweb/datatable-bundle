@@ -48,10 +48,22 @@ pagination sans rechargement.
 
 ### Assets
 
+- Le `composer.json` du bundle porte le mot-clé `symfony-ux` : à chaque `composer require` ou
+  `composer update`, Symfony Flex lit `assets/package.json` et inscrit le bundle dans
+  `assets/controllers.json` avec l'import automatique du CSS
+  (`@tknoweb/datatable-bundle/styles/datatable.css`).
+- Flex **réécrit** `assets/controllers.json` à chaque fois. Pour l'entrée du bundle, il ne conserve
+  que `enabled`, `fetch` et la valeur `true`/`false` des clés `autoimport` déclarées par le bundle ;
+  toute autre retouche manuelle est perdue. Une entrée supprimée est recréée : pour désactiver le
+  CSS, passer sa clé `autoimport` à `false`.
 - **AssetMapper** : le dossier `assets` du bundle est auto-déclaré sous `@tknoweb/datatable-bundle`
   (voir `prependExtension()`), le contrôleur Stimulus doit être exposé sous le nom `datatable`.
-- **Webpack Encore** : `assets/package.json` déclare le contrôleur `datatable` (`symfony.controllers`)
-  avec autoimport du CSS.
+  Flex lance aussi `importmap:require @hotwired/stimulus` si l'entrée manque ou ne satisfait pas
+  `^3.0.0`.
+- **Webpack Encore** : Flex ajoute (ou met à jour) dans le `package.json` du projet
+  `@tknoweb/datatable-bundle` (`file:vendor/tknoweb/datatable-bundle/assets`) et
+  `@hotwired/stimulus`. `assets/package.json` déclare le contrôleur Stimulus et l'import automatique
+  du CSS.
 - Le nom du contrôleur Stimulus attendu par les templates est **`datatable`**
   (`stimulus_controller('datatable', ...)`).
 - Le CSS (`assets/styles/datatable.css`) doit être importé par l'application si Encore ne le fait
@@ -629,6 +641,18 @@ aucun message. Le PHP est à jour, les assets non — le pire des symptômes, pu
 
 Aligner cette version sur le tag Composer est le plus lisible. Le strict nécessaire est qu'elle
 change dès que le contenu de `assets/` change.
+
+Deux points de `composer.json` et `assets/package.json` dont dépend le chargement du CSS :
+
+- **Ne pas retirer le mot-clé `symfony-ux`** de `composer.json`. Sans lui, Flex ne reconnaît plus le
+  bundle et retire son entrée de `assets/controllers.json` à chaque `composer update` : le CSS cesse
+  d'être chargé, sans aucune erreur.
+- **Les clés `autoimport` sont qualifiées par le nom du paquet**
+  (`@tknoweb/datatable-bundle/styles/datatable.css`), jamais relatives (`./styles/…`). Flex les
+  recopie telles quelles dans le `controllers.json` du projet. StimulusBundle les cherche ensuite
+  dans l'AssetMapper puis dans `importmap.php`, et une clé relative fait échouer
+  `asset-map:compile`. stimulus-bridge les importe telles quelles, une clé relative se résout
+  depuis le dossier `assets/` du projet, pas du bundle.
 
 ### Maintenir la documentation à jour
 

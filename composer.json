@@ -2,7 +2,7 @@
   "name": "tknoweb/datatable-bundle",
   "type": "symfony-bundle",
   "description": "Server-side datatables for Symfony: typed columns, sorting, pagination, form-based filters and row actions",
-  "keywords": ["symfony", "bundle", "datatable", "doctrine", "pagination", "filter"],
+  "keywords": ["symfony", "bundle", "datatable", "doctrine", "pagination", "filter", "symfony-ux"],
   "license": "MIT",
   "homepage": "https://github.com/tknoweb/datatable-bundle",
   "authors": [

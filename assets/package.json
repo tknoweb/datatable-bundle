@@ -2,7 +2,7 @@
   "name": "@tknoweb/datatable-bundle",
   "description": "Symfony UX Datatable",
   "license": "MIT",
-  "version": "3.0.2",
+  "version": "3.0.5",
   "main": "js/controllers/datatable_controller.js",
   "symfony": {
     "controllers": {
@@ -13,7 +13,7 @@
         "fetch": "eager",
         "enabled": true,
         "autoimport": {
-          "./styles/datatable.css": true
+          "@tknoweb/datatable-bundle/styles/datatable.css": true
         }
       }
     },

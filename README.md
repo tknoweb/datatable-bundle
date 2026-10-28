@@ -51,10 +51,20 @@ Tknoweb\DatatableBundle\TknowebDatatableBundle::class => ['all' => true],
 
 Le contrôleur Stimulus doit être disponible sous le nom `datatable`.
 
+Symfony Flex reconnaît le bundle comme un paquet Symfony UX. À chaque `composer require` ou
+`composer update`, il inscrit le bundle dans `assets/controllers.json`, ce qui charge
+automatiquement la feuille de style. Flex réécrit ce fichier à chaque fois et recrée une entrée
+supprimée : pour se passer du CSS du bundle, passer sa clé `autoimport` à `false` plutôt que de
+retirer l'entrée.
+
 - **AssetMapper** : le dossier `assets` du bundle est déclaré automatiquement sous
   `@tknoweb/datatable-bundle`, ce qui expose le contrôleur `@tknoweb/datatable-bundle/js/controllers/datatable_controller.js`
-  et la feuille de style `@tknoweb/datatable-bundle/styles/datatable.css`.
-- **Webpack Encore** : `assets/package.json` déclare le contrôleur et l'import automatique du CSS.
+  et la feuille de style `@tknoweb/datatable-bundle/styles/datatable.css`. Flex ajoute
+  `@hotwired/stimulus` à `importmap.php` s'il manque.
+- **Webpack Encore** : Flex ajoute `@tknoweb/datatable-bundle`
+  (`file:vendor/tknoweb/datatable-bundle/assets`) et `@hotwired/stimulus` au `package.json` du
+  projet ; installer ensuite les dépendances JavaScript. `assets/package.json` déclare le contrôleur
+  et l'import automatique du CSS.
 
 Si la chaîne d'assets ne l'importe pas d'elle-même, importer `assets/styles/datatable.css` depuis
 l'application. Cette feuille stylise les classes `.datatable-*` et le voile de chargement du Turbo
